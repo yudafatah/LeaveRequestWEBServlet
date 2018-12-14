@@ -11,22 +11,18 @@ import entities.Employee;
 import interfaces.AccountInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 
 /**
  *
  * @author yudafatah
  */
-@WebServlet(name = "LoadPage", urlPatterns = {"/loadPage"})
-public class Load extends HttpServlet {
+public class ValidationLogin extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,9 +36,26 @@ public class Load extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        AccountInterface ai = new AccountController(factory);
+        String username = request.getParameter("uname");
+        String password = request.getParameter("pass");
         HttpSession session = request.getSession();
+        String message = "Login failed!";
         try (PrintWriter out = response.getWriter()) {
-            response.sendRedirect("views/Login.jsp");
+            if(ai.login(username, password)){
+            Employee employee = ai.find(username);
+            if(employee.getRoleId().getRoleName().equals("Staff")){
+                response.sendRedirect("views/StaffPage.jsp");
+            }
+            else if(employee.getRoleId().getRoleName().equals("Manager")){
+                response.sendRedirect("views/ManagerPage.jsp");
+            }
+            }
+            else{
+                session.setAttribute("message", message);
+                response.sendRedirect("views/Login.jsp");
+            }
         }
     }
 

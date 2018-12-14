@@ -24,12 +24,8 @@ public class AccountController implements AccountInterface{
     public AccountController(SessionFactory factory) {
         this.daoi = new GeneralDAO(factory);
     }
-    public String login(String username, String password){
-        if(daoi.login(username, password)){
-            return "Welcome "+ username + ", Login succes";
-        }else{
-            return "Login failed!";
-        }
+    public boolean login(String username, String password){
+        return daoi.login(username, password);
     }
 
     @Override
