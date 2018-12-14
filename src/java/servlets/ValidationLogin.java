@@ -46,10 +46,10 @@ public class ValidationLogin extends HttpServlet {
             if(ai.login(username, password)){
             Employee employee = ai.find(username);
             if(employee.getRoleId().getRoleName().equals("Staff")){
-                response.sendRedirect("views/StaffPage.jsp");
+                response.sendRedirect("employee/index.jsp");
             }
             else if(employee.getRoleId().getRoleName().equals("Manager")){
-                response.sendRedirect("views/ManagerPage.jsp");
+                response.sendRedirect("manager/index.jsp");
             }
             }
             else{
