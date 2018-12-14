@@ -12,7 +12,7 @@ import entities.Employee;
  * @author yudafatah
  */
 public interface AccountInterface {
-    public String login(String username, String password);
+    public boolean login(String username, String password);
     public Object getById(Object entity, Object id);
     public Employee find(String username);
 }

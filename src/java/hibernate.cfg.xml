@@ -49,5 +49,12 @@ Contributor(s):
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.connection.autocommit">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
+    <property name="hibernate.enable_lazy_load_no_trans">true</property>
+    <mapping class="entities.Employee"/>
+    <mapping class="entities.LeaveRequest"/>
+    <mapping class="entities.LeaveRequestType"/>
+    <mapping class="entities.Parameter"/>
+    <mapping class="entities.Role"/>
+    <mapping class="entities.Site"/>
   </session-factory>
 </hibernate-configuration>
