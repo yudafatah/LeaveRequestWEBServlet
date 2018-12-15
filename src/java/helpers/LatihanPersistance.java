@@ -8,7 +8,11 @@ package helpers;
 
 import connection.HibernateUtil;
 import controllers.AccountController;
+import controllers.LeaveRequestController;
+import entities.Employee;
+import entities.LeaveRequest;
 import interfaces.AccountInterface;
+import interfaces.LeaveRequestInterface;
 import org.hibernate.SessionFactory;
 
 import java.math.BigDecimal;
@@ -82,9 +86,26 @@ public class LatihanPersistance {
 //                new GeneralController(sessionFactory, Region.class);
 //        Region region = (Region) ic.getById(new BigDecimal("2"));
 //        System.out.println(region.getRegionName());
-        AccountInterface ai = new AccountController(sessionFactory);
-        if(ai.login("yudafatah", "semen1976")){
-            System.out.println("login success");
+//        AccountInterface ai = new AccountController(sessionFactory);
+//        if(ai.login("yudafatah", "semen1976")){
+//            System.out.println("login success");
+//        }
+        LeaveRequestInterface lri = new LeaveRequestController(sessionFactory);
+//        for (Object arg : lri.getAlls(new LeaveRequest(), "", 1)) {
+//            LeaveRequest lr = (LeaveRequest) arg;
+//            System.out.println(lr.getLrDuration());
+//        }
+        for (Object object : lri.getDatasWaiting(new LeaveRequest(), 2)) {
+            LeaveRequest lr = (LeaveRequest) object;
+            System.out.println();
         }
+
+//        Employee employee = (Employee) lri.getByIdObj(new Employee(), 2);
+//        System.out.println(employee.getEmployeeName());
+//        for (Employee employee1 : employee.getEmployeeList()) {
+//             for (LeaveRequest leaveRequest : employee1.getLeaveRequestList()) {
+//                 System.out.println(employee1.getEmployeeName()+" - "+leaveRequest.getRequestDate());
+//            }
+//        }
     }
 }

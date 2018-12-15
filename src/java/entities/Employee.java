@@ -38,7 +38,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
     , @NamedQuery(name = "Employee.findByEmployeeId", query = "SELECT e FROM Employee e WHERE e.employeeId = :employeeId")
     , @NamedQuery(name = "Employee.findByJoinDate", query = "SELECT e FROM Employee e WHERE e.joinDate = :joinDate")
-    , @NamedQuery(name = "Employee.findByManagerId", query = "SELECT e FROM Employee e WHERE e.managerId = :managerId")
     , @NamedQuery(name = "Employee.findByQuotaThisyear", query = "SELECT e FROM Employee e WHERE e.quotaThisyear = :quotaThisyear")})
 public class Employee implements Serializable {
 
@@ -68,8 +67,6 @@ public class Employee implements Serializable {
     @Lob
     @Column(name = "email")
     private String email;
-    @Column(name = "manager_id")
-    private Integer managerId;
     @Basic(optional = false)
     @Lob
     @Column(name = "username")
@@ -83,6 +80,11 @@ public class Employee implements Serializable {
     private String password;
     @OneToMany(mappedBy = "employeeId", fetch = FetchType.LAZY)
     private List<LeaveRequest> leaveRequestList;
+    @OneToMany(mappedBy = "managerId", fetch = FetchType.LAZY)
+    private List<Employee> employeeList;
+    @JoinColumn(name = "manager_id", referencedColumnName = "employee_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Employee managerId;
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Role roleId;
@@ -157,14 +159,6 @@ public class Employee implements Serializable {
         this.email = email;
     }
 
-    public Integer getManagerId() {
-        return managerId;
-    }
-
-    public void setManagerId(Integer managerId) {
-        this.managerId = managerId;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -196,6 +190,23 @@ public class Employee implements Serializable {
 
     public void setLeaveRequestList(List<LeaveRequest> leaveRequestList) {
         this.leaveRequestList = leaveRequestList;
+    }
+
+    @XmlTransient
+    public List<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
+    }
+
+    public Employee getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(Employee managerId) {
+        this.managerId = managerId;
     }
 
     public Role getRoleId() {

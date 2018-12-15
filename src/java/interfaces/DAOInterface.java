@@ -17,8 +17,7 @@ public interface DAOInterface {
     public boolean doDML(Object object, boolean isDelete);//iud
     public List<Object> doDDL(Object table, String keyword, Object id);//sga
     public Object getById(Object entity,Object id);
-    public List<Object> getDatasWaiting(Object entity);
-    public List<Object> getAllDatas(Object entity, String key);
+    public List<Object> getDatasWaiting(Object entity, Object managerId);
     public List<Object> getUserHistories(Object entity, int id);
     public Employee find(String username);
     public Object getByIdObj(Object entity, Object id);

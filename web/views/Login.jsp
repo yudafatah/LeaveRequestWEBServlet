@@ -63,8 +63,8 @@
             <div class="checkbox">
               <label><input type="checkbox" value="" >Remember me</label>
             </div>
-                <button type="submit" class="btn btn-success btn-block"><span class="glyphicon glyphicon-off" id="sbtn"></span> Login</button>
-                <div class="alert alert-danger fade" id="alert">
+                <button type="submit" class="btn btn-success btn-block" id="sbtn"><span class="glyphicon glyphicon-off"></span> Login</button>
+                <div class="alert alert-danger fade" id="alert" style="text-align: center">
                 <%= message %>
             </div>
           </form>

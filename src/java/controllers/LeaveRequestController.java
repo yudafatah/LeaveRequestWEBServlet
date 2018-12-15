@@ -103,13 +103,8 @@ public class LeaveRequestController implements LeaveRequestInterface{
     }
 
     @Override
-    public List<Object> getDatasWaiting(Object entity) {
-        return daoi.getDatasWaiting(entity);
-    }
-
-    @Override
-    public List<Object> getAllDatas(Object entity) {
-        return daoi.getAllDatas(entity,"");
+    public List<Object> getDatasWaiting(Object entity, Object managerId) {
+        return daoi.getDatasWaiting(entity, managerId);
     }
 
     @Override
@@ -165,11 +160,6 @@ public class LeaveRequestController implements LeaveRequestInterface{
     }
 
     @Override
-    public List<Object> searchWaiting(Object entity, String key) {
-        return daoi.getAllDatas(entity, key);
-    }
-
-    @Override
     public List<Object> getUserHistories(Object entity, String id) {
         return daoi.getUserHistories(entity, Integer.parseInt(id));
     }
@@ -190,7 +180,7 @@ public class LeaveRequestController implements LeaveRequestInterface{
     }
 
     @Override
-    public List<Object> getAllDatasMaxId(Object entities) {
+    public List<Object> getAllDatasOrderById(Object entities) {
         return daoi.getAllDatasMaxId(entities);
     }
 

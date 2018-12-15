@@ -68,8 +68,8 @@ public class FunctionDAO {
         String className = entities.getClass().getName();
         
         className = className.substring(className.lastIndexOf(".") + 1);
-        String query = "From " + className + " where (delete_status = "
-                + "'Available' or delete_status = 'available') and employee_id = "+id+" ORDER BY request_date";
+        String query = "From " + className + " where (request_status != 'Deleted' "
+                + "or request_status != 'deleted') and employee_id = "+id+" ORDER BY request_date";
         System.out.println(className);
         if (!key.equals("")) {
             query = getQuery(entities, key);
@@ -133,7 +133,7 @@ public class FunctionDAO {
         query = query.substring(0, query.lastIndexOf("OR"))
                 + " and (requestStatus = "
                 + "'Waiting' or requestStatus = 'waiting') "
-                + "and (deleteStatus = 'Available' or deleteStatus = 'available') ORDER BY 1";
+                + "ORDER BY 1";
         System.out.println(query);
         return query;
     }
@@ -213,21 +213,19 @@ public class FunctionDAO {
      * get all data with status is waiting
      * @param entities
      * @param key
+     * @param managerId
      * @return 
      */
-    public List<Object> getDatasWaiting(Object entities, String key) {
+    public List<Object> getDatasWaiting(Object entities, Object managerId) {
         List<Object> rs = new ArrayList<>();
         String className = entities.getClass().getName();
         
         className = className.substring(className.lastIndexOf(".") + 1);
-        String query = "From " + className + " where (request_status = "
-                + "'Waiting' or request_status = 'waiting') and (delete_status "
-                + "= 'Available' or delete_status = 'available') ORDER BY request_date";
+        String query = "From LeaveRequest INNER JOIN employee ON "
+                + "leave_request.employee_id=employee.manager_id "
+                + "where request_status = 'Waiting' and employee.manager_id = "+managerId+" ORDER BY request_date";
         System.out.println(className);
         System.out.println(query);
-        if (!key.equals("")){
-            query=getQueryWaiting(entities, key);
-        }
         try {
             session = factory.openSession();
             transaction = session.beginTransaction();
@@ -392,7 +390,7 @@ public class FunctionDAO {
      * @param entities
      * @return 
      */
-    public List<Object> getAllDatasMaxId(Object entities) {
+    public List<Object> getAllDatas(Object entities) {
         List<Object> rs = new ArrayList<>();
         String className = entities.getClass().getName();
         className = className.substring(className.lastIndexOf(".") + 1);

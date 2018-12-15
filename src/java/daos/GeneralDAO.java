@@ -45,13 +45,8 @@ public class GeneralDAO implements DAOInterface{
     }
 
     @Override
-    public List<Object> getDatasWaiting(Object entity) {
-        return this.fdao.getDatasWaiting(entity, "");
-    }
-
-    @Override
-    public List<Object> getAllDatas(Object entity, String key) {
-        return this.fdao.getDatasWaiting(entity, key);
+    public List<Object> getDatasWaiting(Object entity, Object managerId) {
+        return this.fdao.getDatasWaiting(entity, managerId);
     }
 
     @Override
@@ -76,7 +71,7 @@ public class GeneralDAO implements DAOInterface{
 
     @Override
     public List<Object> getAllDatasMaxId(Object entities) {
-        return this.fdao.getAllDatasMaxId(entities);
+        return this.fdao.getAllDatas(entities);
     }
 
     @Override

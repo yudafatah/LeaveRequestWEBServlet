@@ -112,9 +112,9 @@ public class LeaveRequest implements Serializable {
         this.employeeId = employeeId;
         this.typeLrId = typeLrId;
     }
+    
+    
 
-    
-    
     public Integer getLrId() {
         return lrId;
     }

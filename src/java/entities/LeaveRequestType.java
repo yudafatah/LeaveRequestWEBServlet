@@ -63,8 +63,6 @@ public class LeaveRequestType implements Serializable {
         this.durationLimit = durationLimit;
     }
 
-    
-    
     public Integer getTypeLrId() {
         return typeLrId;
     }

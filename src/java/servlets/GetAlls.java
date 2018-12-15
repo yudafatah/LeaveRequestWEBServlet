@@ -6,23 +6,21 @@
 package servlets;
 
 import connection.HibernateUtil;
-import controllers.AccountController;
-import entities.Employee;
-import interfaces.AccountInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.hibernate.SessionFactory;
 
 /**
  *
  * @author yudafatah
  */
-public class ValidationLogin extends HttpServlet {
+@WebServlet(name = "GetAlls", urlPatterns = {"/getAlls"})
+public class GetAlls extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,29 +34,10 @@ public class ValidationLogin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        SessionFactory factory = HibernateUtil.getSessionFactory();
-        AccountInterface ai = new AccountController(factory);
-        String username = request.getParameter("uname");
-        String password = request.getParameter("pass");
-        HttpSession session = request.getSession();
-        String message = "Login failed!";
-        String id = "";
         try (PrintWriter out = response.getWriter()) {
-            if(ai.login(username, password)){
-            Employee employee = ai.find(username);
-            if(employee.getRoleId().getRoleName().equals("Staff")){
-                id = employee.getEmployeeId().toString();
-                session.setAttribute("Id", id);
-                response.sendRedirect("views/StaffPage.jsp");
-            }
-            else if(employee.getRoleId().getRoleName().equals("Manager")){
-                response.sendRedirect("views/ManagerPage.jsp");
-            }
-            }
-            else{
-                session.setAttribute("message", message);
-                response.sendRedirect("views/Login.jsp");
-            }
+            /* TODO output your page here. You may use following sample code. */
+            SessionFactory factory = HibernateUtil.getSessionFactory();
+            
         }
     }
 
