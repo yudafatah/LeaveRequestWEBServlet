@@ -86,26 +86,6 @@
                 </div>
             </div>
         </div>                      
-        <div class="panel panel-default">
-            <!-- /.panel-heading -->
-            <div class="panel-body">
-                <!-- Start Layer2 -->
-
-                <!--here-->
-
-                <!-- table-responsive -->
-                <!-- table-responsive -->
-                <!--                        <table width="" class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                            <thead>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>-->
-                <!-- End Layer2 -->
-                <!-- /.table-responsive -->
-            </div>
-            <!-- /.panel-body -->
-        </div>
         <!-- /.panel -->
     </div>
     <!-- /.col-lg-12 -->
