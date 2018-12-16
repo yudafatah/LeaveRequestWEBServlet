@@ -22,7 +22,20 @@ public interface LeaveRequestInterface {
      */
     public List<Object> getAlls(Object entity, String keyword, Object id);
     public Object getById(Object entity, Object id);
-    public String insert(String lrid, String empid, String typelr, String reqDate, String startDate, String endDate, String lrDuration, String notereq, String noterej, String reqStat, String delStat, byte[] image);
+    /**
+     * Insert new leave request
+     * @param empid
+     * @param typelr
+     * @param reqDate
+     * @param startDate
+     * @param endDate
+     * @param notereq
+     * @param noterej
+     * @param delStat
+     * @param image
+     * @return 
+     */
+    public String insert(String empid, String typelr, String startDate, String endDate, String notereq, String image);
     public String update(String lrid, String empid, String typelr, String reqDate, String startDate, String endDate, String lrDuration, String notereq, String noterej, String reqStat, String delStat, byte[] image);
     public String delete(Object entity, boolean isDelete);
     /**

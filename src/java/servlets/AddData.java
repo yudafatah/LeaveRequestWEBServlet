@@ -6,12 +6,13 @@
 package servlets;
 
 import connection.HibernateUtil;
-import controllers.AccountController;
-import entities.Employee;
-import interfaces.AccountInterface;
+import controllers.LeaveRequestController;
+import entities.LeaveRequest;
+import interfaces.LeaveRequestInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +23,8 @@ import org.hibernate.SessionFactory;
  *
  * @author yudafatah
  */
-public class ValidationLogin extends HttpServlet {
+@WebServlet(name = "AddData", urlPatterns = {"/addData"})
+public class AddData extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,31 +37,21 @@ public class ValidationLogin extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        SessionFactory factory = HibernateUtil.getSessionFactory();
-        AccountInterface ai = new AccountController(factory);
-        String username = request.getParameter("uname");
-        String password = request.getParameter("pass");
         HttpSession session = request.getSession();
-        String message = "Login failed!";
-        String id = "";
+        String empid = session.getAttribute("Id").toString();
+        String typelr = request.getParameter("typelr");
+        String startdate = request.getParameter("startdate");
+        String enddate = request.getParameter("enddate");
+        String notereq = request.getParameter("notereq");
+        String image = request.getParameter("image");
+        response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            if(ai.login(username, password)){
-            Employee employee = ai.find(username);
-            if(employee.getRoleId().getRoleName().equals("Staff")){
-                id = employee.getEmployeeId().toString();
-                session.setAttribute("Id", id);
-                session.setAttribute("role", "Staff");
-                response.sendRedirect("getAlls");
-            }
-            else if(employee.getRoleId().getRoleName().equals("Manager")){
-                response.sendRedirect("views/ManagerPage.jsp");
-            }
-            }
-            else{
-                session.setAttribute("message", message);
-                response.sendRedirect("views/Login.jsp");
-            }
+            /* TODO output your page here. You may use following sample code. */
+            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+            LeaveRequestInterface lri = new LeaveRequestController(sessionFactory);
+            String message = lri.insert(empid, typelr, startdate, enddate, notereq, image);
+            session.setAttribute("message", message);
+            response.sendRedirect("views/StaffPage.jsp");
         }
     }
 

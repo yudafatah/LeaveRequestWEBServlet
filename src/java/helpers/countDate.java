@@ -17,7 +17,7 @@ public class countDate {
     public static int countDays(String startDate, String endDate) throws Exception {
     int workingDays = 0;
 
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     Calendar startdate = Calendar.getInstance();
     startdate.setTime(sdf.parse(startDate));

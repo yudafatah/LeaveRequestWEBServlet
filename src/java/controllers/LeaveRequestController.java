@@ -9,13 +9,19 @@ import daos.GeneralDAO;
 import entities.Employee;
 import entities.LeaveRequest;
 import entities.LeaveRequestType;
+import helpers.countDate;
 import interfaces.DAOInterface;
 import interfaces.LeaveRequestInterface;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Clock;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import javafx.util.converter.LocalDateStringConverter;
 import org.hibernate.SessionFactory;
 
 /**
@@ -43,18 +49,22 @@ public class LeaveRequestController implements LeaveRequestInterface{
     }
 
     @Override
-    public String insert(String lrid, String empid, String typelr, String reqDate, String startDate, String endDate, String lrDuration, String notereq, String noterej, String reqStat, String delStat, byte[] image) {
+    public String insert(String empid, String typelr, String startDate, String endDate, String notereq, String image) {
         String result = "Insert failed";
         try {
-            DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
-            Date requestDate = format.parse(reqDate);
+            DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+//            Date requestDate = format.parse(reqDate);
             Date startdate = format.parse(startDate);
             Date enddate = format.parse(endDate);
+            LocalDate localDate = LocalDate.now();
+            Date reqdate = format.parse(localDate.toString());
+            System.out.println(reqdate);
+            int lrduration = countDate.countDays(startDate, endDate);
             Employee employee = new Employee(Integer.parseInt(empid));
             LeaveRequestType lrt = new LeaveRequestType(Integer.parseInt(typelr));
-            LeaveRequest leaveRequest = new LeaveRequest(null, requestDate, 
-                    startdate, enddate, Integer.parseInt(lrDuration), notereq, 
-                    reqStat, image, noterej, employee, 
+            LeaveRequest leaveRequest = new LeaveRequest(null, reqdate, 
+                    startdate, enddate, lrduration, notereq, 
+                    "Waiting", null, null, employee, 
                              lrt);
             if(daoi.doDML(leaveRequest, false)){
                 result = "New data has been created";

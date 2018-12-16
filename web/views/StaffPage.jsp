@@ -4,6 +4,7 @@
     Author     : yudafatah
 --%>
 
+<%@page import="java.util.List"%>
 <%@page import="entities.LeaveRequestType"%>
 <%@page import="controllers.LeaveRequestController"%>
 <%@page import="interfaces.LeaveRequestInterface"%>
@@ -26,15 +27,6 @@
     </head>
     <body>
         <% 
-            String getDepartmetId = "", getDepartmentName = "", getManager = "", getLocation = "";
-            if (session.getAttribute("LR") != null) {
-                LeaveRequest lr = (LeaveRequest) session.getAttribute("LR");
-//                getDepartmetId = dep.getDepartmentId().toString();
-//                getDepartmentName = dep.getDepartmentName();
-//                getManager = dep.getManagerId().getFirstName();
-//                getLocation = dep.getLocationId().getCity();
-                
-            }
             String id = "";
             if(session.getAttribute("Id") != null){
                 id = session.getAttribute("Id").toString();
@@ -50,10 +42,10 @@
                             <h3>Form Leave Request</h3>
                         </div>
                         <div class="panel-body">
-                            <form method="POST" action="../adRegion">
+                            <form method="POST" action="../addData">
                                 <div class="form-group">
                                     <label>Type Leave Request</label>
-                                    <select class="form-control" name="typeLr">
+                                    <select class="form-control" name="typelr">
                                         <%
                                         for (Object obj : lri.getAllDatasOrderById(new LeaveRequestType())) {
                                             LeaveRequestType lrt = (LeaveRequestType) obj;
@@ -66,22 +58,22 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Start Date</label>
-                                    <input type="Date" class="form-control" name="startDate" value="<%= getDepartmentName %>">
+                                    <input type="Date" class="form-control" name="startdate">
                                 </div>
                                 <div class="form-group">
                                     <label>End Date</label>
-                                    <input type="Date" class="form-control" name="endDate">
+                                    <input type="Date" class="form-control" name="enddate">
                                 </div>
                                 <div class="form-group">
                                     <label for="notereq">Note</label>
-                                    <textarea class="form-control" rows="5" id="notereq"></textarea>
+                                    <textarea class="form-control" rows="5" name="notereq"></textarea>
                                 </div>
                                 <div>
                                     <label for="upload">Upload Proof of Agreement Image</label>
-                                    <input type = "file" name = "file" size = "50" />
+                                    <input type = "file" name = "image" size = "50" />
                                 </div>
                                 <button clas type="submit" class="btn btn-info">Submit</button>
-                                <% session.removeAttribute("department"); %>
+                                <% session.setAttribute("Id", id); %>
                             </form>
                         </div>
                     </div>
@@ -109,32 +101,35 @@
                                 <tbody>
                                     <%
                                     int no = 1;
-                                    for (Object obj : lri.getAlls(new LeaveRequest(), "", id)) { 
+                                    if (session.getAttribute("datas") != null) {
+                                        List<Object> o = (List<Object>) session.getAttribute("datas");
+                                    for (Object obj : o) { 
                                         LeaveRequest lr = (LeaveRequest) obj;
                                     %>
-                                        <tbody>
-                                            <tr>
-                                                <td><%= no %></td>
-                                                <td><%= lr.getTypeLrId().getTypeName() %></td>
-                                                <td><%= lr.getRequestDate()%></td>
-                                                <td><%= lr.getStartDate() %></td>
-                                                <td><%= lr.getEndDate() %></td>
-                                                <td><%= lr.getLrDuration() %></td>
-                                                <td><%= lr.getNoteRequest() %></td>
-                                                <td><%= lr.getNoteReject() %></td>
-                                                <td><%= lr.getRequestStatus() %></td>
-                                                <td><%= lr.getImage() %></td>
-                                                <td>
-                                                    <a href="../update?param=cancel">
-                                                        <input class="btn btn-warning btn-md" type="button" value="Cancel" />
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
+                                        <tr>
+                                            <td><%= no %></td>
+                                            <td><%= lr.getTypeLrId().getTypeName() %></td>
+                                            <td><%= lr.getRequestDate()%></td>
+                                            <td><%= lr.getStartDate() %></td>
+                                            <td><%= lr.getEndDate() %></td>
+                                            <td><%= lr.getLrDuration() %></td>
+                                            <td><%= lr.getNoteRequest() %></td>
+                                            <td><%= lr.getNoteReject() %></td>
+                                            <td><%= lr.getRequestStatus() %></td>
+                                            <td><%= lr.getImage() %></td>
+                                            <td>
+                                                <a href="../update?param=cancel">
+                                                    <input class="btn btn-warning btn-md" type="button" value="Cancel" />
+                                                </a>
+                                            </td>
+                                        </tr>
                                     <%
                                     no++;
                                     }
+                                    } else{
                                     %>
+                                    <tr><td>Data tidak tersedia</td></tr>
+                                    <% } %>
                                 </tbody>
                             </table>
                         </div>
@@ -146,5 +141,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <!-- Bootstrap 3.3.7 -->
 	<script src="../asset/bootstrap/js/bootstrap.min.js"></script>
+        <%  session.removeAttribute("message");
+            session.removeAttribute("datas");%>
     </body>
 </html>

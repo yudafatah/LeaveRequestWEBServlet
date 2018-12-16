@@ -11,6 +11,7 @@ import controllers.AccountController;
 import controllers.LeaveRequestController;
 import entities.Employee;
 import entities.LeaveRequest;
+import entities.LeaveRequestType;
 import interfaces.AccountInterface;
 import interfaces.LeaveRequestInterface;
 import org.hibernate.SessionFactory;
@@ -95,10 +96,10 @@ public class LatihanPersistance {
 //            LeaveRequest lr = (LeaveRequest) arg;
 //            System.out.println(lr.getLrDuration());
 //        }
-        for (Object object : lri.getDatasWaiting(new LeaveRequest(), 2)) {
-            LeaveRequest lr = (LeaveRequest) object;
-            System.out.println();
-        }
+//        for (Object object : lri.getDatasWaiting(new LeaveRequest(), 2)) {
+//            LeaveRequest lr = (LeaveRequest) object;
+//            System.out.println();
+//        }
 
 //        Employee employee = (Employee) lri.getByIdObj(new Employee(), 2);
 //        System.out.println(employee.getEmployeeName());
@@ -107,5 +108,6 @@ public class LatihanPersistance {
 //                 System.out.println(employee1.getEmployeeName()+" - "+leaveRequest.getRequestDate());
 //            }
 //        }
+        System.out.println(lri.insert("1", "1", "2018-02-06", "2018-02-09", "hhh", null));
     }
 }

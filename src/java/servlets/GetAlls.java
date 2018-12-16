@@ -6,13 +6,18 @@
 package servlets;
 
 import connection.HibernateUtil;
+import controllers.LeaveRequestController;
+import entities.LeaveRequest;
+import interfaces.LeaveRequestInterface;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.hibernate.SessionFactory;
 
 /**
@@ -34,10 +39,22 @@ public class GetAlls extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            String id = session.getAttribute("Id").toString();
+            String role = session.getAttribute("role").toString();
             SessionFactory factory = HibernateUtil.getSessionFactory();
-            
+            LeaveRequestInterface lri = new LeaveRequestController(factory);
+            if(role.equals("Staff")){
+                List<Object> datas = lri.getAlls(new LeaveRequest(), "", id);
+                session.setAttribute("datas", datas);
+                session.setAttribute("Id", id);
+                response.sendRedirect("views/StaffPage.jsp");
+            }
+            else{
+                
+            }
         }
     }
 
