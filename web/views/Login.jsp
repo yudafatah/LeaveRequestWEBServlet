@@ -37,14 +37,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
-
                     <div class="login-panel panel panel-default">
-
                         <div class="panel panel-primary">
                             <div class="panel-primary">
                                 <div class="row"> <br>
                                     <div class="col-xs-12 text-center">
-                                        <img src="../assets/profile/metrodata.png" width="50%">
+                                        <img src="../assets/profile/MII.png" width="50%">
                                     </div>
                                 </div>
                             </div> <br> <br>
@@ -58,7 +56,7 @@
                             <div class="panel-footer">
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        <a class="btn btn-success col-xs-12" data-toggle="modal" data-target="#myModal">Sign</a>
+                                        <a class="btn btn-success col-xs-12" data-toggle="modal" data-target="#myModal">Enter <span class="fa fa-arrow-right"></span></a>
                                     </div>
                                 </div>
                             </div>
@@ -66,6 +64,7 @@
                     </div>
                 </div>
             </div>
+        </div>
             <!--
             <h2>Login Page</h2>
              Trigger the modal with a button 
@@ -78,7 +77,13 @@
                     <div class="modal-content fade in">
                         <div class="modal-header" style="padding:10px 10px;">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4><span><img class="col-xs-12" align="center" src="../assets/profile/MII.png" width="30%"></span></h4>
+                            <h4>
+                                <span>
+                                    <!--<img class="text-center" src="../assets/profile/MII.png" width="30%">-->
+                                
+                                    <h3> Login User</h3>
+                                </span>
+                            </h4>
                         </div>
                         <div class="modal-body" style="padding:40px 50px;">
                             <form action="../validationLogin" method="POST">
@@ -99,15 +104,9 @@
                                 </div>
                             </form>
                         </div>
-                        <!--                        <div class="modal-footer">
-                                                     <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-                                                    
-                                                </div>-->
                     </div>
-
                 </div>
-            </div> 
-
+            </div>
             <script>
                 //
                 //$(window).on('load',function(){

@@ -38,21 +38,21 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li>
-                        <a href="index.jsp"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        <a href="Index.jsp"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                     </li>
                     <li>
                         <a href="#"><i class="fa fa-star fa-fw"></i> Your Leave Request<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="request.jsp">Leave Request</a>
+                                <a href="Request.jsp">Leave Request</a>
                             </li>
                             <li>
-                                <a href="report.jsp">History Request</a>
+                                <a href="Report.jsp">History Request</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="report.jsp"><i class="fa fa-files-o fa-fw"></i> Report</a>
+                        <a href="Report.jsp"><i class="fa fa-files-o fa-fw"></i> Report</a>
                     </li>
                     <li>
                         <br>
